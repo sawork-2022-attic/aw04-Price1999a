@@ -14,4 +14,8 @@ public class Product implements Serializable {
     private String name;
     private double price;
     private String image;
+
+    public String toString() {
+        return String.format("%s,%s,%f,%s", id, name, price, image);
+    }
 }
