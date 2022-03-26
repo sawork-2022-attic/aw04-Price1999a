@@ -20,7 +20,7 @@ And it also fetches a product list from jd.com every time a session begins.
 
 Please **write a report** on the performance differences you notices among the above tasks.
 
-##任务记录
+## 任务记录
 
 gatling 脚本配置完成
 
@@ -49,7 +49,7 @@ docker network create -d bridge aw04
 
 测试水平拓展
 
-##实验简要报告
+## 实验简要报告
 
 这是一次针对系统水平拓展后的压力测试对比。
 
@@ -75,7 +75,7 @@ docker network create -d bridge aw04
 session是需要在每一次处理请求时读写，此时集群将他们通过一个`Hash`算法分开到三个服务器上，而单点服务器将直接读写。
 商品数据作为缓存，在集群上实际上仍然是由一台服务器维护的。此时集群与单点没有本质差异。
 
-###实验环境搭建的简要说明
+### 实验环境搭建的简要说明
 
 这次实验中，web服务器与数据库服务是被容器化的。
 
@@ -90,7 +90,7 @@ session是需要在每一次处理请求时读写，此时集群将他们通过�
 
 `Docker`容器化采用`Dockerfile`。
 
-###实验结果
+### 实验结果
 
 - 单服务器实验
 
@@ -150,5 +150,6 @@ docker run --net aw04 -p 8084:8080 --cpus=0.5 --name s4 -d pos-web
 ```
 
 我们可以看到，单服务器上，平均每秒处理3.03个请求，而水平拓展后，这个值大幅上涨到16.667个请求每秒。（重复多次数据类似）
+
 这可能是因为redis缓存发挥了作用。
 也可能是因为m1芯片的大小核在不同任务负载下调度所致，可能在高任务负载：水平拓展下，任务会被分配到高性能核心上运行。
