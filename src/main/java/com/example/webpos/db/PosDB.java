@@ -11,4 +11,8 @@ public interface PosDB {
 
     public Product getProduct(String productId);
 
+    public double getTaxRate();
+
+    public double getDiscount();
+
 }

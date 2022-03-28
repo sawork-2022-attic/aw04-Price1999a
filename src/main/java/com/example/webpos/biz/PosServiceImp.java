@@ -31,7 +31,12 @@ public class PosServiceImp implements PosService, Serializable {
 
     @Override
     public void checkout(Cart cart) {
+        cart.getTotal();
+        cart.getItems().clear();
+    }
 
+    public void cancelCart(Cart cart) {
+        cart.getItems().clear();
     }
 
     @Override
@@ -53,5 +58,15 @@ public class PosServiceImp implements PosService, Serializable {
     @Cacheable(value = "products")
     public List<Product> products() {
         return posDB.getProducts();
+    }
+
+    @Override
+    public double getTaxRate() {
+        return posDB.getTaxRate();
+    }
+
+    @Override
+    public double getDiscount() {
+        return posDB.getDiscount();
     }
 }

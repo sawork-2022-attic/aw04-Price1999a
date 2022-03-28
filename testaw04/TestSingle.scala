@@ -21,7 +21,7 @@ class Test extends Simulation{
         )
         .exec(
             http("request")
-            .get("/add?pid=1")
+            .get("/add?pid=13284888")
         )
 
     setUp(scn.inject(atOnceUsers(50)).protocols(httpProtocol))

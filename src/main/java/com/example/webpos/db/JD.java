@@ -2,6 +2,9 @@ package com.example.webpos.db;
 
 import com.example.webpos.model.Cart;
 import com.example.webpos.model.Product;
+import com.example.webpos.web.PosController;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,6 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class JD implements PosDB {
@@ -19,15 +23,27 @@ public class JD implements PosDB {
 
     private List<Product> products = null;
 
+    private Log logger = LogFactory.getLog(PosController.class);
+
     @Override
     public List<Product> getProducts() {
         try {
             if (products == null)
                 products = parseJD("Java");
         } catch (IOException e) {
+            logger.info(e);
             products = new ArrayList<>();
         }
         return products;
+    }
+
+    public double getTaxRate() {
+        return 12;
+    }
+
+    @Override
+    public double getDiscount() {
+        return 0;
     }
 
     @Override
@@ -55,7 +71,7 @@ public class JD implements PosDB {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            list.add(new Product("1", "offline", 99.0, "http://img11.360buyimg.com/n1/s200x200_jfs/t1/124573/21/11990/96352/5f575498Ef6b6bc06/4e3cfe064e5ffe42.jpg"));
+            list.add(new Product("13284888", "offline Java从入门到精通（第6版）（软件开发视频大讲堂） Java入门经典", 39.9, "https://img13.360buyimg.com/n1/s200x200_jfs/t1/186038/9/7947/120952/60bdd993E41eea7e2/48ab930455d7381b.jpg"));
             return list;
         }
 
@@ -74,7 +90,10 @@ public class JD implements PosDB {
             if (title.indexOf("，") >= 0)
                 title = title.substring(0, title.indexOf("，"));
 
-            if (id == "") id = String.valueOf(tmp++);
+            if (Objects.equals(id, "")) {
+                continue;
+                //id = String.valueOf(tmp++);
+            }
             Product product = new Product(id, title, Double.parseDouble(price), img);
             //System.out.println(product);
             list.add(product);
