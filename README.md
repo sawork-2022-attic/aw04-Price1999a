@@ -154,8 +154,11 @@ docker run --net aw04 -p 8084:8080 --cpus=0.5 --name s4 -d pos-web
 这可能是因为redis缓存发挥了作用。
 也可能是因为m1芯片的大小核在不同任务负载下调度所致，可能在高任务负载：水平拓展下，任务会被分配到高性能核心上运行。
 
-## 增补
+## 增补 0328
 
 基于0328老师的要求完善了整个网站购物车的增删，另外对于session share问题，由于sppring boot架构的高度抽象，所以不论性能，redis单服务器与集群在此问题上是等价的。
 
 整体而言，session是参考了sa-spring/spring-session-jdbc项目中，用一个AutoWired的HttpSession来处理这个问题。
+
+## 增补 0329
+通过群友 解决了无法使用宿主机redis集群的问题。
