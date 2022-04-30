@@ -33,6 +33,7 @@ public class Cart implements Serializable {
         for (int i = 0; i < items.size(); i++) {
             total += items.get(i).getQuantity() * items.get(i).getProduct().getPrice();
         }
+        total = (double) Math.round(total * 100) / 100;
         return total;
     }
 

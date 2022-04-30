@@ -97,10 +97,10 @@
                             <i class="fa fa-tags "></i> Category 3</a></li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="pill" href="#nav-tab-bank">
-                            <i class="fa fa-tags "></i> Category 4</a></li>
+                            <i class="fa fa-tags "></i> Category 4 </a></li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="pill" href="#nav-tab-bank">
-                            <i class="fa fa-tags "></i> Category 5</a></li>
+                            <i class="fa fa-tags "></i> Category 5 </a></li>
                 </ul>
                 <span id="items">
 	<div class="row">
@@ -215,6 +215,10 @@
         </div>
     </div><!-- container //  -->
 </section>
+
+<a th:href="@{/?pageNum={k}(k=${previous})}"><span style="font-size: large; ">Previous</span></a>
+
+<a th:href="@{/?pageNum={k}(k=${next})}"><span style="font-size: large; ">Next</span></a>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 <script th:src="@{/js/jquery-2.0.0.min.js}" type="text/javascript"></script>
 <script th:src="@{/js/bootstrap.bundle.min.js}" type="text/javascript"></script>

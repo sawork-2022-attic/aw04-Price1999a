@@ -9,6 +9,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -17,16 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Repository
+@Repository(value = "jd")
 public class JD implements PosDB {
 
 
     private List<Product> products = null;
 
-    private Log logger = LogFactory.getLog(PosController.class);
+    private Log logger = LogFactory.getLog(JD.class);
 
     @Override
-    public List<Product> getProducts() {
+    public List<Product> getProducts(int pageNum) {
         try {
             if (products == null)
                 products = parseJD("Java");
@@ -48,7 +49,7 @@ public class JD implements PosDB {
 
     @Override
     public Product getProduct(String productId) {
-        for (Product p : getProducts()) {
+        for (Product p : getProducts(0)) {
             if (p.getId().equals(productId)) {
                 return p;
             }
@@ -56,7 +57,8 @@ public class JD implements PosDB {
         return null;
     }
 
-    public static List<Product> parseJD(String keyword) throws IOException {
+    @Cacheable(value = "jd")
+    public List<Product> parseJD(String keyword) throws IOException {
         List<Product> list = new ArrayList<>();
         //获取请求https://search.jd.com/Search?keyword=java
         String url = "https://search.jd.com/Search?keyword=" + keyword;

@@ -15,11 +15,13 @@ public interface PosService {
 
     public Cart add(Cart cart, String productId, int amount);
 
-    public List<Product> products();
+    public List<Product> products(int k);
 
     public double getTaxRate();
 
     public double getDiscount();
+
+    public double getTotal(Cart cart);
 
     public Product randomProduct();
 }
